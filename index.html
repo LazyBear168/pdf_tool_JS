@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  <meta charset="UTF-8" />
+  <title>PDF TOOL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>📄 PDF Tool</h2>
+    <button onclick="loadTool('merge')">Merge </button>
+    <button onclick="loadTool('split')">Split</button>
+    <button onclick="loadTool('design')">design</button>
+  </div>
+
+  <div class="main" id=""tool-container">
+    <h1>Welcome to PDF Tool</h1>
+    <p>Select a tool from the sidebar to get started.</p>
+  </div>
+
+  <!-- PDF-lib globally available -->
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="js/router.js"></script>
+</body>
+</html>

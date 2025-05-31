@@ -1,0 +1,12 @@
+pdf-tool/
+├── index.html         ← Main layout (with sidebar)
+├── /tools/
+│   ├── merge.html     ← Merge tool content only
+│   ├── split.html     ← Split tool content only
+│   └── design.html    ← Design tool placeholder
+├── /js/
+│   ├── merge.js
+│   ├── split.js
+│   └── router.js      ← handles tool switching
+├── /css/
+│   └── style.css
