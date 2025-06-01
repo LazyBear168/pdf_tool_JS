@@ -1,11 +1,22 @@
+<!--
+  📂 index.html
+  Main shell layout for the PDF Tool SPA.
+  Contains persistent sidebar and dynamic content area.
+  Tools (merge, split, design) are loaded via router.js.
+  ⚒️ Local testing: run `python3 -m http.server` in the root folder.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>  
   <meta charset="UTF-8" />
   <title>PDF TOOL</title>
+
+  <!-- ⛓️‍💥 Shared CSS for layout and theme -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
+  <!-- ⚽️ Sidebar: Navigation for different PDF tools -->
   <div class="sidebar">
     <h2>📄 PDF Tool</h2>
     <button onclick="loadTool('merge')">Merge </button>
@@ -13,7 +24,7 @@
     <button onclick="loadTool('design')">design</button>
   </div>
 
-  <div class="main" id=""tool-container">
+  <div class="main" id="tool-container">
     <h1>Welcome to PDF Tool</h1>
     <p>Select a tool from the sidebar to get started.</p>
   </div>

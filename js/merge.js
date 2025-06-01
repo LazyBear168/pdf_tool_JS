@@ -1,6 +1,6 @@
 document.getElementById('mergeBtn').addEventListener('click', async () => {
   const files = document.getElementById('mergeFiles').files;
-  if (!files.length) return alert("Select PDF files to merge.");
+  if (!files.length) return alert("Please select files.");
 
   const { PDFDocument } = PDFLib;
   const mergedPdf = await PDFDocument.create();
