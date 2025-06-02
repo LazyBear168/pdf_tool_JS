@@ -1,36 +1,46 @@
 <!--
   📂 index.html
-  Main shell layout for the PDF Tool SPA.
-  Contains persistent sidebar and dynamic content area.
-  Tools (merge, split, design) are loaded via router.js.
+  Main layout shell for the client-side PDF Tool SPA.
+  Contains a persistent sidebar and dynamic content area.
+  Tool pages (merge, split, design) are loaded via router.js.
+  Use 1.PDF-lib, 2.Mozilla’s PDF.js
   ⚒️ Local testing: run `python3 -m http.server` in the root folder.
+  
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>  
   <meta charset="UTF-8" />
   <title>PDF TOOL</title>
 
-  <!-- ⛓️‍💥 Shared CSS for layout and theme -->
+  <!--  Shared CSS for layout and theme -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ⚽️ Sidebar: Navigation for different PDF tools -->
+  <!--  Sidebar: Navigation for different PDF tools -->
   <div class="sidebar">
     <h2>📄 PDF Tool</h2>
+     <!-- Tool selection triggers dynamic content loading via loadTool() -->
+    <button onclick="loadTool('reader')">PDF Reader</button>
     <button onclick="loadTool('merge')">Merge </button>
     <button onclick="loadTool('split')">Split</button>
     <button onclick="loadTool('design')">design</button>
   </div>
 
+   <!--  Main content container: Tool-specific HTML will be injected here -->
   <div class="main" id="tool-container">
     <h1>Welcome to PDF Tool</h1>
     <p>Select a tool from the sidebar to get started.</p>
   </div>
 
-  <!-- PDF-lib globally available -->
+  <!--Call the PDF-lib -->
   <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   <script src="js/router.js"></script>
+
+  <!--Call the Mozilla's PDF.js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 </body>
 </html>

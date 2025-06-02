@@ -1,3 +1,4 @@
+/* For the Home page. */
 body {
   margin: 0;
   font-family: sans-serif;
@@ -33,3 +34,12 @@ body {
   padding: 20px;
   overflow-y: auto;
 }
+
+/* For function reader */
+/* Ensure canvas is responsive and not clipped */
+#pdfCanvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
