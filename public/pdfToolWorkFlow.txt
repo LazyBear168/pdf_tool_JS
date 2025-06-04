@@ -1,0 +1,145 @@
+Step 1: ✍️ Define Product Structure (Information Architecture)
+    mathematica:
+        Top of website:
+            client-side / Server-side switch button | Top Bar(the function will change for client/Server-side)
+                Top Bar(client-side):
+                    - 📖 PDF Reader
+                        - 🗂 Open PDF (drop-down menu)
+                        - ➕ Zoom In    (drop-down menu)
+                        - ➖ Zoom Out   (drop-down menu)
+                        - 🔢 Go to Page (drop-down menu)
+                        - 📜 Page Thumbnails   (drop-down menu)
+                        - 🌓 Dark Mode Viewer   (drop-down menu)
+                        Main Area UI:
+                            Canvas or container to render PDF
+                            Navigation controls (prev/next)
+                    - ✏️ PDF Editor
+                        - 📝 Add Text   (drop-down menu)
+                        - 🖊 Highlight Text   (drop-down menu)
+                        - 🖼 Insert Image   (drop-down menu)
+                        - 🔁 Rotate Page   (drop-down menu)
+                        - 🗑 Delete Page   (drop-down menu)
+                        - 📄 Split / Extract Pages   (drop-down menu)
+                        - 🔗 Merge PDFs   (drop-down menu)
+                        Main Area UI:
+                            PDF viewer with editable layers
+                            Tool-specific toolbar (e.g., text properties)
+                Top Bar(Server-side):
+                    - 📖 PDF Reader
+                        - 🗂 Open PDF (drop-down menu)
+                        - ➕ Zoom In    (drop-down menu)
+                        - ➖ Zoom Out   (drop-down menu)
+                        - 🔢 Go to Page (drop-down menu)
+                        - 📜 Page Thumbnails   (drop-down menu)
+                        - 🌓 Dark Mode Viewer   (drop-down menu)
+                        Main Area UI:
+                            Canvas or container to render PDF
+                            Navigation controls (prev/next)
+                    - ✏️ PDF Editor
+                        - 📝 Add Text   (drop-down menu)
+                        - 🖊 Highlight Text   (drop-down menu)
+                        - 🖼 Insert Image   (drop-down menu)
+                        - 🔁 Rotate Page   (drop-down menu)
+                        - 🗑 Delete Page   (drop-down menu)
+                        - 📄 Split / Extract Pages   (drop-down menu)
+                        - 🔗 Merge PDFs   (drop-down menu)
+                        Main Area UI:
+                            PDF viewer with editable layers
+                            Tool-specific toolbar (e.g., text properties)
+                    - 🌐 PDF Translator
+                        - 🔍 OCR (Extract Text from PDF) (drop-down menu)
+                        - 🌐 Select Target Language (drop-down menu)
+                        - ✏️ Translate Text (drop-down menu)
+                        - 🧾 Preview & Download Translated PDF (drop-down menu)
+                        - Export as other file type (drop-down menu)
+                        Main Area UI:
+                            PDF preview (original vs translated)
+                            Export options
+
+Step 2: 🧭 Create a Navigation Flowchart
+
+Step 3: 📐 Sketch Layout (Wireframe)
+    mathematica:
+        +-------------------------------------------------------+
+        |client/Server switch | Reader | Editor | Translator    | ← top bar (with drop-down menu(Reader/Open PDF,Zoom In, ...))
+        +---------------------+-------------------------------+ |
+        |                   Main Workspace Area                 |
+        |                                                       |
+        |                     PDF or tools UI                   |
+        |                                                       |
+        +---------------------+-------------------------------+ |
+
+Step 4: 📱 Responsive Design Thinking (Breakpoints)
+    (1). 🔝 Top Bar (Client/Server Toggle + Function Menu)
+        View	Behavior
+        Desktop	Show everything horizontally
+        Tablet	Show horizontally but space items slightly tighter
+        Mobile	Collapse into a hamburger menu (☰) 
+
+    (2). 📦 Dropdown Tool Menus (Reader, Editor, etc.)
+    View	Behavior
+    Desktop	Hover to open dropdown
+    Tablet	Tap to expand/collapse dropdown
+    Mobile	Transform into an accordion 
+
+    (3). 🖼 Main Workspace Area (PDF Canvas, Tools UI)
+    View	Behavior
+    Desktop	Full width PDF canvas + floating panels/toolbars
+    Tablet	Shrink toolbars; keep PDF centered
+    Mobile	Hide toolbars by default; show them in overlay or collapsible panel
+
+    (4). 🧰 Tool Controls (Zoom, Rotate, etc.)
+    View	Behavior
+    Desktop	Show inline next to canvas or in sidebar
+    Mobile	Move to top bar dropdown or slide-in panel
+    All Views	Use icon buttons (🗑, ➕) to save space and be clear
+
+Step 5: 🧠 Design Component Behavior
+    🔝 (1). Top Bar
+        Component	                           | Behavior
+        Client-side / Server-side toggle	   | Changes available functions + tool logic
+        PDF Reader / Editor / Translator menu  | Opens dropdown on hover (desktop) or tap (mobile)
+        Dropdown stays open until:	           | User clicks outside, selects an option, or re-clicks toggle
+
+    📥 (2). Dropdown Menu Items (Tool Selector)
+        Item	           | Behavior
+        Open PDF	       | Triggers file input → PDF rendered in canvas
+        Zoom In / Zoom Out | Increases/decreases canvas scale
+        Go to Page	       | Opens small input box or number spinner
+        Merge PDFs	       | Opens file input (multiple) → merge preview in canvas
+
+    🖼 (3). Main Area: PDF Canvas
+        Behavior	                        | Description
+        Renders PDF	                        | Using pdf.js (Reader) or pdf-lib (Editor)
+        Updates on tool click	            | Canvas refreshes with new state (e.g., added text/image)
+        Supports zoom, page flip, dark mode | Canvas listens for tool actions
+        Editor mode	                        | Click = place element, Drag = move object
+
+    🛠 (4). Tools (Add Text, Highlight, etc.)
+        Tool	         | Behavior
+        Add Text         | Click canvas → shows input box → confirm to place
+        Highlight        | Drag over text → overlays transparent rectangle
+        Insert Image     | Opens file picker → lets you drag into canvas
+        Rotate Page	     | Applies rotation to selected page using pdf-lib
+        Split / Extract  | Input page range → generates new PDF preview
+
+    🌐 (5). PDF Translator (Server-side only)
+        Step	         | Behavior
+        OCR	             | Upload → server extracts text from image or PDF
+        Select Language	 | Dropdown to choose target language
+        Translate Text	 | Sends text + language → gets translated text
+        Preview	         | Shows side-by-side original vs. translated content
+        Download	     | Exports as .pdf or .txt using server-generated result
+
+    🔁 (6). Global Behavior
+        Action	                                         | Result
+        Switching mode (client/server)	                 | Unloads current tool and tool list
+        Switching top bar tool (e.g., Reader → Editor)	 | Sidebar/dropdown updates; canvas may be cleared
+        Mobile dropdown tap	                             | Only one menu open at a time
+        Resize screen	                                 | Layout reflows (based on breakpoints)
+
+    ✅ Best Practices Used
+        ✨ Lazy-loading tools: Only load tool code (.js) when needed
+        🧠 Event delegation: Handle interactions at a high level (canvas, tool panel)
+        ⚙️ Separation of logic: UI code ≠ PDF processing code
+        🧼 Clear entry/exit for each tool: No state overlap

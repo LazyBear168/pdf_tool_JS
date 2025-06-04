@@ -1,45 +1,40 @@
-/* For the Home page. */
 body {
-  margin: 0;
-  font-family: sans-serif;
-  display: flex;
-  height: 100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background-color:rgb(213, 213, 213);
 }
 
-.sidebar {
-  width: 200px;
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
+header nav.topBar {
+    background-color: rgb(255, 255, 255);
+    display: flex
 }
 
-.sidebar button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  background: #444;
-  color: #fff;
-  border: none;
-  text-align: left;
-  cursor: pointer;
+header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.sidebar button:hover {
-  background: #555;
+header li {
+    display:inline-block;
+    padding: 0px 0px 20px 20px;
 }
 
-.main {
-  flex-grow: 1;
-  padding: 20px;
-  overflow-y: auto;
+header a {
+    color: rgb(15, 18, 98);
+    text-decoration: none;
 }
 
-/* For function reader */
-/* Ensure canvas is responsive and not clipped */
-#pdfCanvas {
-  display: block;
-  max-width: 100%;
-  height: auto;
+header a:hover {
+    color:rgb(255, 0, 0);
 }
 
+header .pdfLogo a {
+    background-image: url("../images/PDF_Tool-removebg.png");
+    background-size: 150px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 30px;
+    width: 150px;
+    position: relative;
+    top: 9px;
+}
