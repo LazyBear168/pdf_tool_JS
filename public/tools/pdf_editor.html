@@ -1,33 +1,41 @@
 <!--
-  📂 index.html
-  Main layout shell for the client / Server-side switch PDF Tool SPA.
-  Contains a drop-down menu and dynamic content area.
-  Tool pages (merge, split, design) are loaded via router.js.
-  Use 1.PDF-lib, 2.Mozilla’s PDF.js
-  ⚒️ Local testing: run `python3 -m http.server` in the root folder.
+    pdf_editor.html
 -->
-  <!DOCTYPE html>
-<html lan="en">
+
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>PDF tool</title>
-        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="/css/style.css" />
     </head>
 
     <body>
-        <!--Top horizental bar navication to different tools -->
-         <header>
-            <nav class="topBar">
-                <ul>
-                    <li class="pdfLogo"><a href="../index.html"></a></li>
-                    <li><a href="pdf_reader.html">PDF Reader</a></li>
-                    <li><a href="pdf_editor.html">PDF Editor</a></li>
-                    <li><a href="pdf_translator.html">PDF Translator</a></li>
-                </ul>
-            </nav>
-        </header>
-        <section>This is PDF Editor</section>
+        <header id="navbar-container"></header>
+
+        <section>This is editor page~~~</section>
+        
+        <!-- Js for top bar -->
+        <script>
+            fetch("/partials/navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-container").innerHTML = data;
+
+                // Attach button behavior after navbar is injected
+                const rightBtn = document.getElementById("right-button");
+                const leftBtn = document.getElementById("left-button");
+                const topBar = document.querySelector(".topBarWrapper");
+
+                rightBtn?.addEventListener("click", () => {
+                    topBar.classList.add("expanded");
+                 });
+
+                leftBtn?.addEventListener("click", () => {
+                    topBar.classList.remove("expanded");
+                });
+            });
+        </script>
     </body>
-
-
 </html>

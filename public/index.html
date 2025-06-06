@@ -6,28 +6,60 @@
   Use 1.PDF-lib, 2.Mozilla’s PDF.js
   ⚒️ Local testing: run `python3 -m http.server` in the root folder.
 -->
-  <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>PDF tool</title>
         <link rel="stylesheet" href="css/style.css" />
     </head>
 
     <body>
-        <!--Top horizental bar navication to different tools -->
-        <header>
-            <nav class="topBar">
-                <ul>
-                    <li class="pdfLogo"><a href="index.html"></a></li>
-                    <li><a href="tools/pdf_reader.html">PDF Reader</a></li>
-                    <li><a href="tools/pdf_editor.html">PDF Editor</a></li>
-                    <li><a href="tools/pdf_translator.html">PDF Translator</a></li>
-                </ul>
-            </nav>
-        </header>
-         <section>This is Home page</section>
+        <header id="navbar-container"></header>
+
+        <section>This is Home page...3~~~</section>
+        
+        <!-- Js for top bar -->
+        <script>
+            // The button <<, >> for small screen.
+            fetch("partials/navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-container").innerHTML = data;
+
+                // Attach button behavior after navbar is injected
+                const rightBtn = document.getElementById("right-button");
+                const leftBtn = document.getElementById("left-button");
+                const topBar = document.querySelector(".topBarWrapper");
+
+                rightBtn?.addEventListener("click", () => {
+                    topBar.classList.add("expanded");
+                 });
+
+                leftBtn?.addEventListener("click", () => {
+                    topBar.classList.remove("expanded");
+                });
+            
+                // The button for drop-down sub menu.
+                document.querySelectorAll(".dropBtn").forEach(button => {
+                    button.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const dropdown = this.nextElementSibling;
+                        dropdown.classList.toggle("show")
+                    });
+                });
+                // Close dropdowns when clicking outside
+                document.addEventListener("click", function (e) {
+                    document.querySelectorAll(".dropdown-content").forEach(menu => {
+                        if (!menu.parentElement.contains(e.target)) {
+                            menu.classList.remove("show");
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
-
-
 </html>
