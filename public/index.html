@@ -1,10 +1,12 @@
 <!--
-  📂 index.html
+  File name: index.html
   Main layout shell for the client / Server-side switch PDF Tool SPA.
   Contains a drop-down menu and dynamic content area.
   Tool pages (merge, split, design) are loaded via router.js.
   Use 1.PDF-lib, 2.Mozilla’s PDF.js
   ⚒️ Local testing: run `python3 -m http.server` in the root folder.
+
+  Author: sunny
 -->
 
 <!DOCTYPE html>
@@ -19,47 +21,74 @@
     <body>
         <header id="navbar-container"></header>
 
-        <section>This is Home page...3~~~</section>
+        <section>Top bar layout complete ver1.</section>
         
         <!-- Js for top bar -->
         <script>
-            // The button <<, >> for small screen.
+            // Loading the top bar menu layout and the function of button <<, >> when the screen shrinkage.
             fetch("partials/navbar.html")
             .then(response => response.text())
-            .then(data => {
-                document.getElementById("navbar-container").innerHTML = data;
+            .then(data => { document.getElementById("navbar-container").innerHTML = data;
 
-                // Attach button behavior after navbar is injected
-                const rightBtn = document.getElementById("right-button");
-                const leftBtn = document.getElementById("left-button");
-                const topBar = document.querySelector(".topBarWrapper");
+            const leftBtn = document.getElementById("left-button");
+            const rightBtn = document.getElementById("right-button");
+            const topBar = document.querySelector(".topBarWrapper");
 
-                rightBtn?.addEventListener("click", () => {
-                    topBar.classList.add("expanded");
-                 });
+            rightBtn?.addEventListener("click", () => {
+                topBar.classList.add("expanded");
+            });
 
-                leftBtn?.addEventListener("click", () => {
-                    topBar.classList.remove("expanded");
-                });
-            
-                // The button for drop-down sub menu.
-                document.querySelectorAll(".dropBtn").forEach(button => {
-                    button.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const dropdown = this.nextElementSibling;
-                        dropdown.classList.toggle("show")
-                    });
-                });
-                // Close dropdowns when clicking outside
-                document.addEventListener("click", function (e) {
+            leftBtn?.addEventListener("click", () => {
+                topBar.classList.remove("expanded");
+            });
+
+            // Built the function of drop-down sub menu.
+            let activeMenu = null;
+            let menuShown = false;
+
+            document.querySelectorAll(".dropBtn").forEach(button => {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const dropdown = this.nextElementSibling;
+                    // Hide all other submenu.
                     document.querySelectorAll(".dropdown-content").forEach(menu => {
-                        if (!menu.parentElement.contains(e.target)) {
-                            menu.classList.remove("show");
-                        }
+                        if (menu !== dropdown) menu.classList.remove("show");
                     });
+
+                    // Toggle click submenu.
+                    dropdown.classList.toggle("show");
+                    menuShown = dropdown.classList.contains("show");
+                    activeMenu = dropdown;
                 });
             });
+
+            // Hover to switch submenu (only if one is already shown)
+            document.querySelectorAll(".dropdown").forEach(item => {
+                item.addEventListener("mouseenter", function () {
+                    if (!menuShown) return;
+                    const dropdown = this.querySelector(".dropdown-content");
+
+                    document.querySelectorAll(".dropdown-content").forEach(menu => {
+                        menu.classList.remove("show");
+                    });
+                    dropdown.classList.add("show");
+                    activeMenu = dropdown;
+                });
+            });
+
+            // Click outside to close submenu
+            document.addEventListener("click", function (e) {
+                document.querySelectorAll(".dropdown-content").forEach(menu => {
+                    if (!menu.parentElement.contains(e.target)) {
+                        menu.classList.remove("show");
+                    }
+                });
+                activeMenu = null;
+                menuShown = false;
+            });
+        });
         </script>
     </body>
 </html>
