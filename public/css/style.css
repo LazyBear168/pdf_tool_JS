@@ -147,8 +147,11 @@ body {
     transition: opacity 0.2s ease-in-out;
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(-5px);
 }
 .topBarWrapper .dropdown-content.show {
+    transform: translateY(0);
     display: flex;
     opacity: 1;
     pointer-events: auto;
@@ -191,5 +194,13 @@ body {
 }
 .visually-hidden {
   position: absolute;
-  left: -9999px;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
+

@@ -1,5 +1,5 @@
 // File name: topbar.js
-//Author: sunny
+// Author: sunny
 // Loading the top bar menu layout and the function of button <<, >> when the screen shrinkage.
 
 const sharedMenus = [
@@ -41,8 +41,8 @@ fetch("partials/navbar.html")
     console.error("Failed to load navbar", error);
 });
 
-function renderMenu(containSelector, isMobile = false) {
-    const container = document.querySelector(containSelector);
+function renderMenu(containerSelector, isMobile = false) {
+    const container = document.querySelector(containerSelector);
     if (!container) return;
 
     const ul = document.createElement("ul");
@@ -62,12 +62,16 @@ function renderMenu(containSelector, isMobile = false) {
         const ulSub = document.createElement("ul");
         ulSub.className = "dropdown-content";
         ulSub.id = isMobile ? `mobile-${menu.id}` : menu.id;
+        ulSub.setAttribute("role", "menu");
+        ulSub.setAttribute("aria-label", `${menu.label} submenu`);
+
 
         menu.items.forEach(item => {
             const subLi = document.createElement("li");
             const subBtn = document.createElement("button");
             subBtn.type = "button";
             subBtn.textContent = item;
+            subBtn.setAttribute("role", "menuitem");
             subLi.appendChild(subBtn);
             ulSub.appendChild(subLi);
         });
