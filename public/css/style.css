@@ -1,18 +1,26 @@
 /* File name: style.css*/
 /*Author: sunny*/
-/* General styles */
+
+/* Global reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(213, 213, 213);
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 /* Nav container */
 .topBarWrapper {
     background-color: white;
     white-space: nowrap;
+    position: relative;
+    z-index: 1000;
 }
 .topBarWrapper ul {
     display: flex;
@@ -29,24 +37,25 @@ body {
     font-size: 14px;
     flex-shrink: 0;
 }
-header a {
-    color: rgb(15, 18, 98);
-    text-decoration: none;
-    cursor: pointer;
-}
-header a:hover {
-    color: rgb(255, 0, 0);
-}
 
 /* Logo */
-.pdfLogo a {
-    background-image: url("../images/PDF_Tool-removebg.png");
-    background-size: 150px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 30px;
-    width: 150px;
+.logo-img {
+  background-image: url("../images/PDF_Tool-removebg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: inline-block;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
 }
+@media (max-width: 500px) {
+  .mobile-logo .logo-img {
+    height: 40px;
+    margin: 0 auto;
+  }
+}
+
 /* button <<, >> */
 .fold-toggle button {
     background: none;
@@ -58,6 +67,9 @@ header a:hover {
     display: none;
 }
 
+.fold-toggle button:focus-visible {
+  outline: 2px solid rgb(15, 18, 98);
+}
 /* Responsive behavior */
 /* Show desktop by default*/
 .desktop-nav {
@@ -66,14 +78,14 @@ header a:hover {
 .mobile-nav {
     display: none;
 }
-@media screen and (min-width: 510px) and (max-width: 530px) {
+@media screen and (min-width: 500px) and (max-width: 768px) {
     /* Hide right items by default */
     .topBarWrapper:not(.expanded) .foldableR{
     display: none;
     }
 
     /* Show toggle buttons >> */
-    .fold-toggle #right-button {
+    .fold-toggle > #right-button {
         display: inline-block;
     }
 
@@ -93,19 +105,9 @@ header a:hover {
 }
 
 /* Phone screen layout */
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 500px) {
     .desktop-nav {
         display: none;
-    }
-    .mobile-logo a {
-        display: block;
-        background-image: url("../images/PDF_Tool-removebg.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        width: 150px;
-        height: 40px;
-        margin: 0 auto;
     }
     .mobile-nav {
         display: block;
@@ -113,7 +115,10 @@ header a:hover {
         padding: 5px;
         text-align: center;
     }
-    .mobile-nav li {
+    .mobile-nav .menu-container ul {
+        text-align: center;
+    }
+    .mobile-nav .menu-container li {
         margin: 0 auto;
     }
 
@@ -126,27 +131,65 @@ header a:hover {
 .dropdown {
     position: relative;
 }
-.dropdown-content {
-    display: none !important;
+.topBarWrapper .dropdown-content {
+    display: none;
+    flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
     background-color: white;
-    min-width: 100 px;
+    min-width: 150px;
     z-index: 999;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     padding: 0;
     margin: 0;
-    flex-direction: column;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
 }
-.dropdown-content.show {
-    display: block !important;
+.topBarWrapper .dropdown-content.show {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
 }
 .dropdown-content li {
     display: block;
     width: 100%;
-    padding: 8px 12px;
+    padding: 0;
     text-align: left;
     cursor: pointer;
+}
+/* Button style reset (dropBtn and submenu items) */
+.dropBtn,
+.dropdown-content button {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    margin: 0;
+    font: inherit;
+    color: rgb(15, 18, 98);
+    text-align: left;
+    cursor: pointer;
+    min-height: 44px;
+}
+.dropBtn:hover,
+.dropdown-content button:hover {
+    background-color: #f0f0f0;
+    color: rgb(255, 0, 0);
+}
+.dropBtn:focus-visible,
+.dropdown-content button:focus-visible {
+  outline: 2px solid rgb(15, 18, 98); /* or any custom style */
+}
+
+.dropBtn:focus:not(:focus-visible),
+.dropdown-content button:focus:not(:focus-visible) {
+  outline: none;
+}
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
 }

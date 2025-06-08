@@ -14,81 +14,29 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PDF tool</title>
+        <meta name="description" content="A modern PDF tool with merge, split, and design features, powered by PDF-lib and Mozilla’s PDF.js.">
+        <link rel="icon" href="favicon.ico" />
+        <title>PDF Tool – Merge, Split, and Design PDF Files</title>
         <link rel="stylesheet" href="css/style.css" />
-    </head>
+        <!-- Call Js for top bar -->
+        <script defer src="js/topbar.js"></script>
+    </head> 
 
     <body>
         <header id="navbar-container"></header>
+        <main id="main-content">
+            <h1 class="visually-hidden">PDF Tool – Merge, Split, and Design PDF Files</h1>
 
-        <section>Top bar layout complete ver1.</section>
-        
-        <!-- Js for top bar -->
-        <script>
-            // Loading the top bar menu layout and the function of button <<, >> when the screen shrinkage.
-            fetch("partials/navbar.html")
-            .then(response => response.text())
-            .then(data => { document.getElementById("navbar-container").innerHTML = data;
-
-            const leftBtn = document.getElementById("left-button");
-            const rightBtn = document.getElementById("right-button");
-            const topBar = document.querySelector(".topBarWrapper");
-
-            rightBtn?.addEventListener("click", () => {
-                topBar.classList.add("expanded");
-            });
-
-            leftBtn?.addEventListener("click", () => {
-                topBar.classList.remove("expanded");
-            });
-
-            // Built the function of drop-down sub menu.
-            let activeMenu = null;
-            let menuShown = false;
-
-            document.querySelectorAll(".dropBtn").forEach(button => {
-                button.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    const dropdown = this.nextElementSibling;
-                    // Hide all other submenu.
-                    document.querySelectorAll(".dropdown-content").forEach(menu => {
-                        if (menu !== dropdown) menu.classList.remove("show");
-                    });
-
-                    // Toggle click submenu.
-                    dropdown.classList.toggle("show");
-                    menuShown = dropdown.classList.contains("show");
-                    activeMenu = dropdown;
-                });
-            });
-
-            // Hover to switch submenu (only if one is already shown)
-            document.querySelectorAll(".dropdown").forEach(item => {
-                item.addEventListener("mouseenter", function () {
-                    if (!menuShown) return;
-                    const dropdown = this.querySelector(".dropdown-content");
-
-                    document.querySelectorAll(".dropdown-content").forEach(menu => {
-                        menu.classList.remove("show");
-                    });
-                    dropdown.classList.add("show");
-                    activeMenu = dropdown;
-                });
-            });
-
-            // Click outside to close submenu
-            document.addEventListener("click", function (e) {
-                document.querySelectorAll(".dropdown-content").forEach(menu => {
-                    if (!menu.parentElement.contains(e.target)) {
-                        menu.classList.remove("show");
-                    }
-                });
-                activeMenu = null;
-                menuShown = false;
-            });
-        });
-        </script>
+            <noscript>
+                <p>This tool requires JavaScript to function. Please enable JavaScript 
+                    in your browser.</p>
+            </noscript>
+        </main>  
+        <aside role="complementary" aria-label="Tool instructions">
+            <p>🧩 Please select a PDF tool from the top bar to begin.</p>
+        </aside>
+        <footer>
+            <p>&copy; 2025 PDF Tool. All rights reserved.</p>
+        </footer>
     </body>
 </html>
